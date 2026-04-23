@@ -142,69 +142,155 @@ dbl (24): ID, cold_ischemia, r_height, r_weight, r_bmi, r_age, r_caucasian, ...
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<p>Log Regression Test with TWA and predictors gender, bmi, age:</p>
+<p><strong><em>REAL</em></strong> testing donor glucose association with dysfunction &amp; differing by risk index</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(delayed_fn <span class="sc">~</span> glutwa <span class="sc">+</span> d_genderf <span class="sc">+</span> d_age,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> DonorHyperglycemia,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full model (with interaction: glucose × donor risk)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(delayed_fn <span class="sc">~</span> <span class="fu">log2</span>(glutwa) <span class="sc">*</span> donorrisk <span class="sc">+</span> d_genderf,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> DonorHyperglycemia,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = delayed_fn ~ glutwa + d_genderf + d_age, family = "binomial", 
-    data = DonorHyperglycemia)
+glm(formula = delayed_fn ~ log2(glutwa) * donorrisk + d_genderf, 
+    family = "binomial", data = DonorHyperglycemia)
 
 Coefficients:
-             Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -1.843193   0.388554  -4.744  2.1e-06 ***
-glutwa       0.002690   0.001736   1.549    0.121    
-d_genderf    0.086356   0.202658   0.426    0.670    
-d_age        0.005585   0.005790   0.965    0.335    
+                        Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)            -11.97295    7.83765  -1.528    0.127
+log2(glutwa)             1.28848    1.04888   1.228    0.219
+donorrisk                6.01733    5.11333   1.177    0.239
+d_genderf               -0.05615    0.24112  -0.233    0.816
+log2(glutwa):donorrisk  -0.67744    0.68298  -0.992    0.321
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 503.72  on 436  degrees of freedom
+Residual deviance: 491.51  on 432  degrees of freedom
+  (135 observations deleted due to missingness)
+AIC: 501.51
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduced model (no interaction)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(delayed_fn <span class="sc">~</span> <span class="fu">log2</span>(glutwa) <span class="sc">+</span> donorrisk <span class="sc">+</span> d_genderf,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> DonorHyperglycemia,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = delayed_fn ~ log2(glutwa) + donorrisk + d_genderf, 
+    family = "binomial", data = DonorHyperglycemia)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept)   -4.4800     1.9943  -2.246  0.02467 * 
+log2(glutwa)   0.2835     0.2634   1.076  0.28174   
+donorrisk      0.9579     0.3275   2.925  0.00345 **
+d_genderf     -0.0369     0.2407  -0.153  0.87812   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 647.08  on 570  degrees of freedom
-Residual deviance: 642.75  on 567  degrees of freedom
-  (1 observation deleted due to missingness)
-AIC: 650.75
+    Null deviance: 503.72  on 436  degrees of freedom
+Residual deviance: 492.50  on 433  degrees of freedom
+  (135 observations deleted due to missingness)
+AIC: 500.5
 
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Likelihood Ratio Test (comparing both models)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: delayed_fn ~ log2(glutwa) + donorrisk + d_genderf
+Model 2: delayed_fn ~ log2(glutwa) * donorrisk + d_genderf
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1       433     492.50                     
+2       432     491.51  1  0.98779   0.3203</code></pre>
 </div>
+</div>
+<p>Donor Glucose: 3.63x higher odds of graft dysfunction (earlier - proven to not be statistically significant) Donor Risk: 410x higher odds of graft dysfunction for each 1 point increase (proven to be statistically significant), but at the interecept (when glucose = 1, which is not realistic. So we will run another ) Gender: 0.95 (5% lower odds) of graft dysfunction for females (not statistically signficant)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(delayed_fn <span class="sc">~</span> glutwa <span class="sc">+</span> d_genderf <span class="sc">+</span> d_age <span class="sc">+</span> glutwa <span class="sc">*</span> d_age,</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> DonorHyperglycemia,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>) </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DonorHyperglycemia, <span class="fu">aes</span>(<span class="at">x =</span> donorrisk, <span class="at">y =</span> delayed_fn)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>)) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Donor Risk Index"</span>, <span class="at">y =</span> <span class="st">"Probability of Graft Dysfunction"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 135 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>donor risk association with dysfunction (and adjusted)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glm</span>(delayed_fn <span class="sc">~</span> donorrisk <span class="sc">+</span> d_genderf,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> DonorHyperglycemia,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = delayed_fn ~ glutwa + d_genderf + d_age + glutwa * 
-    d_age, family = "binomial", data = DonorHyperglycemia)
+glm(formula = delayed_fn ~ donorrisk + d_genderf, family = "binomial", 
+    data = DonorHyperglycemia)
 
 Coefficients:
-               Estimate Std. Error z value Pr(&gt;|z|)
-(Intercept)  -1.426e+00  8.869e-01  -1.607    0.108
-glutwa        3.638e-04  4.794e-03   0.076    0.940
-d_genderf     9.575e-02  2.035e-01   0.470    0.638
-d_age        -4.129e-03  1.941e-02  -0.213    0.832
-glutwa:d_age  5.266e-05  1.007e-04   0.523    0.601
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -2.39608    0.45563  -5.259 1.45e-07 ***
+donorrisk    0.97712    0.32707   2.988  0.00281 ** 
+d_genderf   -0.02843    0.24077  -0.118  0.90599    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 647.08  on 570  degrees of freedom
-Residual deviance: 642.47  on 566  degrees of freedom
-  (1 observation deleted due to missingness)
-AIC: 652.47
+    Null deviance: 503.72  on 436  degrees of freedom
+Residual deviance: 493.66  on 434  degrees of freedom
+  (135 observations deleted due to missingness)
+AIC: 499.66
 
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
-<p>Does the relationship btw donor glucose and lgd depend on donor age</p>
+<p>donorrisk → estimate = 0.977, p = 0.00281 (**statistically significant)</p>
+<p>odds ratio</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)   donorrisk   d_genderf 
+ 0.09107449  2.65679251  0.97196569 </code></pre>
+</div>
+</div>
+<p>CI for the odds ratio</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(m))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Waiting for profiling to be done...</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %    97.5 %
+(Intercept) 0.03677266 0.2202696
+donorrisk   1.40052965 5.0667098
+d_genderf   0.60332292 1.5531749</code></pre>
+</div>
+</div>
+<p>We are 95% confident that a one-unit increase in donor risk is associated with between 1.4× and 5.1× higher odds of graft dysfunction.</p>
 
 </main>
 <!-- /main column -->

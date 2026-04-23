@@ -12,20 +12,61 @@ DonorHyperglycemia <- read_csv("DonorHyperglycemia.csv")
 ```
 
 
-Log Regression Test with TWA and predictors gender, bmi, age:
+***REAL*** testing donor glucose association with dysfunction & differing by risk index
 ```{r}
-m1 <- glm(delayed_fn ~ glutwa + d_genderf + d_age,
+
+# Full model (with interaction: glucose × donor risk)
+m1 <- glm(delayed_fn ~ log2(glutwa) * donorrisk + d_genderf,
           data = DonorHyperglycemia,
-          family = "binomial") 
+          family = "binomial")
 
 summary(m1)
-```
-```{r}
-m2 <- glm(delayed_fn ~ glutwa + d_genderf + d_age + glutwa * d_age,
+
+# Reduced model (no interaction)
+m0 <- glm(delayed_fn ~ log2(glutwa) + donorrisk + d_genderf,
           data = DonorHyperglycemia,
-          family = "binomial") 
+          family = "binomial")
 
-summary(m2)
+summary(m0)
+
+# Likelihood Ratio Test (comparing both models)
+anova(m0, m1, test = "LRT")
+
 ```
 
-Does the relationship btw donor glucose and lgd depend on donor age
+
+ Donor Glucose: 3.63x higher odds of graft dysfunction (earlier - proven to not be statistically significant)
+ Donor Risk: 410x higher odds of graft dysfunction for each 1 point increase (proven to be statistically significant), but at the interecept (when glucose = 1, which is not realistic. So we will run another )
+ Gender: 0.95 (5% lower odds) of graft dysfunction for females (not statistically signficant)
+ 
+
+
+```{r}
+library(ggplot2)
+
+ggplot(DonorHyperglycemia, aes(x = donorrisk, y = delayed_fn)) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial")) +
+  labs(x = "Donor Risk Index", y = "Probability of Graft Dysfunction")
+```
+
+donor risk association with dysfunction (and adjusted)
+```{r}
+m <- glm(delayed_fn ~ donorrisk + d_genderf,
+         data = DonorHyperglycemia,
+         family = "binomial")
+
+summary(m)
+```
+donorrisk → estimate = 0.977, p = 0.00281 (**statistically significant)
+
+odds ratio 
+```{r}
+exp(coef(m))
+```
+
+CI for the odds ratio
+```{r}
+exp(confint(m))
+```
+We are 95% confident that a one-unit increase in donor risk is associated with between 1.4× and 5.1× higher odds of graft dysfunction.
+
