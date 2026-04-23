@@ -11,3 +11,8 @@ Encoding: UTF-8
 
 RnwWeave: Sweave
 LaTeX: pdfLaTeX
+<<<<<<< HEAD:Project.Rproj
+=======
+
+ProjectName: project
+>>>>>>> 2be6e2b77d7b94dfcc7557124647ae4bcb1aa945:project.Rproj

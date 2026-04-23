@@ -2,5 +2,30 @@
 title: "project"
 format: html
 ---
+```{r}
+library(dplyr)
+library(tidyverse)
+```
+
+```{r}
+DonorHyperglycemia <- read_csv("DonorHyperglycemia.csv")
+```
 
 
+Log Regression Test with TWA and predictors gender, bmi, age:
+```{r}
+m1 <- glm(delayed_fn ~ glutwa + d_genderf + d_age,
+          data = DonorHyperglycemia,
+          family = "binomial") 
+
+summary(m1)
+```
+```{r}
+m2 <- glm(delayed_fn ~ glutwa + d_genderf + d_age + glutwa * d_age,
+          data = DonorHyperglycemia,
+          family = "binomial") 
+
+summary(m2)
+```
+
+Does the relationship btw donor glucose and lgd depend on donor age
