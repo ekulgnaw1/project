@@ -11,8 +11,5 @@ Encoding: UTF-8
 
 RnwWeave: Sweave
 LaTeX: pdfLaTeX
-<<<<<<< HEAD
 
-ProjectName: project stats
-=======
->>>>>>> ff6768aabe7857d5240ea77bb0458d2b553f0fc5
+ProjectName: project

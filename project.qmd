@@ -2,4 +2,23 @@
 title: "project"
 format: html
 ---
+```{r}
+library(dplyr)
+library(tidyverse)
+```
+
+```{r}
+DonorHyperglycemia <- read_csv("DonorHyperglycemia.csv")
+```
+
+
+Log Regression Test with TWA and predictors gender, bmi, age:
+```{r}
+m1 <- glm(delayed_fn ~ r_genderf + r_bmi + r_age,
+          data = DonorHyperglycemia,
+          family = "binomial") 
+
+summary(m1)
+```
+
 
