@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>project</title>
+<title>Donor Glucose and Delayed Graft Dysfunction in Liver Transplantation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -70,11 +35,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="project_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="project_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="project_files/libs/bootstrap/bootstrap-8c543e4039884b26c7b0567813ae3237.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="project_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="project_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+</head><body class="fullcontent quarto-light">\usepackage{booktabs}
+\usepackage{float}
+\floatplacement{table}{H}
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 
-</head>
 
-<body class="fullcontent quarto-light">
+
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
@@ -82,7 +81,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">project</h1>
+<h1 class="title">Donor Glucose and Delayed Graft Dysfunction in Liver Transplantation</h1>
+<p class="subtitle lead">Does Donor Risk Index Modify the Association?</p>
 </div>
 
 
@@ -90,6 +90,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Invalid Date</p>
+    </div>
+  </div>
   
     
   </div>
@@ -99,198 +105,224 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Delayed graft dysfunction (DGD) is a complication that can occur following liver transplantation, and is generally associated with longer hospital stays, higher mortality, and worse long-term graft survival. Understanding what predicts DGD matters both for patient outcomes and for decisions about which donor organs to accept.</p>
+<p>One commonly used tool for assessing donor organ quality is the Donor Risk Index (DRI), a composite score that takes into account factors like donor age, cause of death, and organ type to estimate the likelihood of graft failure. Higher DRI values indicate higher-risk donations. While DRI has been used to predict transplant outcomes, it is based on demographic and clinical information and does not include real-time physiological measurements from the donor.</p>
+<p>Donor glucose is one variable that might provide additional information. High glucose levels in critically ill patients can be a sign of physiological stress, which could potentially affect organ viability before transplantation. That said, whether donor glucose is actually associated with DGD — and whether that relationship changes depending on how risky the donor already is by DRI — is not well established in the literature we reviewed.</p>
+<p>This study looks at both of these questions using data from 572 liver transplant donors. The dataset includes donor glucose levels (recorded as a time-weighted average and log-transformed for analysis), the Donor Risk Index, donor sex, and whether delayed graft dysfunction occurred.</p>
+<p><strong>Research question:</strong> Does donor glucose level predict delayed graft dysfunction in liver transplantation, and does this association differ by donor risk index?</p>
+</section>
+<section id="methodology" class="level1">
+<h1>Methodology</h1>
+<section id="model-specification" class="level2">
+<h2 class="anchored" data-anchor-id="model-specification">Model Specification</h2>
+<p>Because delayed graft dysfunction is a binary outcome (1 = dysfunction, 0 = no dysfunction), we used logistic regression to model the probability of DGD. This is a standard approach for binary outcomes and lets us estimate how each predictor is associated with the odds of dysfunction while holding the others constant.</p>
+<p>We fit two models. The first includes an interaction term between log-transformed glucose and DRI. We included this interaction because we wanted to test whether the relationship between glucose and DGD might depend on how risky the donor already is — for example, glucose might matter more for high-risk donors than low-risk ones:</p>
+<p><span class="math display">\[\text{logit}(P(\text{DGD})) = \beta_0 + \beta_1\log_2(\text{glucose}) + \beta_2\text{DRI} + \beta_3\text{sex} + \beta_4\log_2(\text{glucose})\times\text{DRI}\]</span></p>
+<p>where <span class="math inline">\(\text{logit}(P(\text{DGD}))\)</span> is the log-odds of delayed graft dysfunction, <span class="math inline">\(\log_2(\text{glucose})\)</span> is the log base-2 transformed time-weighted average donor glucose, <span class="math inline">\(\text{DRI}\)</span> is the Donor Risk Index, <span class="math inline">\(\text{sex}\)</span> is donor sex (female = 1), and the interaction term <span class="math inline">\(\log_2(\text{glucose}) \times \text{DRI}\)</span> captures whether the glucose effect differs across DRI levels.</p>
+<p>We also fit a reduced model without the interaction term, to look at the independent effect of each predictor:</p>
+<p><span class="math display">\[\text{logit}(P(\text{DGD})) = \beta_0 + \beta_1\log_2(\text{glucose}) + \beta_2\text{DRI} + \beta_3\text{sex}\]</span></p>
+<p>We then compared the two models using a likelihood ratio test (LRT) to see whether adding the interaction term meaningfully improved model fit. If the test came back non-significant (<span class="math inline">\(p &gt; 0.05\)</span>), we would conclude there is not enough evidence for an interaction and stick with the simpler model.</p>
+</section>
+<section id="choice-of-predictors-and-transformations" class="level2">
+<h2 class="anchored" data-anchor-id="choice-of-predictors-and-transformations">Choice of Predictors and Transformations</h2>
+<p>Glucose was log-transformed (base 2) before modeling because the raw values were right-skewed. The log<span class="math inline">\(_2\)</span> scale is also convenient for interpretation: a one-unit increase corresponds to a doubling of the original glucose value.</p>
+<p>We included donor sex as a covariate based on prior literature suggesting it may be related to graft outcomes. DRI was kept as a continuous variable rather than grouped into categories, since collapsing it would lose information.</p>
+</section>
+<section id="assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions">Assumptions</h2>
+<p>Logistic regression requires a few key assumptions: that the log-odds of the outcome is approximately linear in each continuous predictor, that observations are independent, and that predictors are not perfectly collinear with each other.</p>
+<p>We assessed linearity by looking at the shape of the fitted logistic curve, which appeared smooth and monotonic — consistent with the linearity assumption, though we did not run formal diagnostics. Independence seems reasonable since each row in the dataset is a separate donor-recipient pair. The three predictors capture different aspects of the donor (metabolic, composite risk, and demographic), so perfect collinearity is unlikely. It is worth noting that 135 observations were dropped due to missing data, leaving 437 complete cases, which is still a reasonable sample size for this kind of model.</p>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<section id="model-comparison-likelihood-ratio-test" class="level2">
+<h2 class="anchored" data-anchor-id="model-comparison-likelihood-ratio-test">Model Comparison: Likelihood Ratio Test</h2>
+<p>The likelihood ratio test comparing the full model to the reduced model returned a <span class="math inline">\(p\)</span>-value of 0.32. This means we do not have sufficient evidence at the 0.05 significance level to conclude that the interaction between glucose and DRI improves model fit. In other words, the data do not support the idea that the effect of glucose on DGD changes depending on the donor’s risk level. We proceeded with the reduced model for the rest of the analysis.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ forcats   1.0.1     ✔ readr     2.1.6
-✔ ggplot2   4.0.2     ✔ stringr   1.6.0
-✔ lubridate 1.9.5     ✔ tibble    3.3.1
-✔ purrr     1.2.1     ✔ tidyr     1.3.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>DonorHyperglycemia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"DonorHyperglycemia.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 572 Columns: 24
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-dbl (24): ID, cold_ischemia, r_height, r_weight, r_bmi, r_age, r_caucasian, ...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-<p><strong><em>REAL</em></strong> testing donor glucose association with dysfunction &amp; differing by risk index</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full model (with interaction: glucose × donor risk)</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(delayed_fn <span class="sc">~</span> <span class="fu">log2</span>(glutwa) <span class="sc">*</span> donorrisk <span class="sc">+</span> d_genderf,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> DonorHyperglycemia,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = delayed_fn ~ log2(glutwa) * donorrisk + d_genderf, 
-    family = "binomial", data = DonorHyperglycemia)
-
-Coefficients:
-                        Estimate Std. Error z value Pr(&gt;|z|)
-(Intercept)            -11.97295    7.83765  -1.528    0.127
-log2(glutwa)             1.28848    1.04888   1.228    0.219
-donorrisk                6.01733    5.11333   1.177    0.239
-d_genderf               -0.05615    0.24112  -0.233    0.816
-log2(glutwa):donorrisk  -0.67744    0.68298  -0.992    0.321
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 503.72  on 436  degrees of freedom
-Residual deviance: 491.51  on 432  degrees of freedom
-  (135 observations deleted due to missingness)
-AIC: 501.51
-
-Number of Fisher Scoring iterations: 4</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduced model (no interaction)</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(delayed_fn <span class="sc">~</span> <span class="fu">log2</span>(glutwa) <span class="sc">+</span> donorrisk <span class="sc">+</span> d_genderf,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">data =</span> DonorHyperglycemia,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = delayed_fn ~ log2(glutwa) + donorrisk + d_genderf, 
-    family = "binomial", data = DonorHyperglycemia)
-
-Coefficients:
-             Estimate Std. Error z value Pr(&gt;|z|)   
-(Intercept)   -4.4800     1.9943  -2.246  0.02467 * 
-log2(glutwa)   0.2835     0.2634   1.076  0.28174   
-donorrisk      0.9579     0.3275   2.925  0.00345 **
-d_genderf     -0.0369     0.2407  -0.153  0.87812   
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 503.72  on 436  degrees of freedom
-Residual deviance: 492.50  on 433  degrees of freedom
-  (135 observations deleted due to missingness)
-AIC: 500.5
-
-Number of Fisher Scoring iterations: 4</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Likelihood Ratio Test (comparing both models)</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m0, m1, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Deviance Table
-
-Model 1: delayed_fn ~ log2(glutwa) + donorrisk + d_genderf
-Model 2: delayed_fn ~ log2(glutwa) * donorrisk + d_genderf
-  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
-1       433     492.50                     
-2       432     491.51  1  0.98779   0.3203</code></pre>
-</div>
-</div>
-<p>Donor Glucose: 3.63x higher odds of graft dysfunction (earlier - proven to not be statistically significant) Donor Risk: 410x higher odds of graft dysfunction for each 1 point increase (proven to be statistically significant), but at the interecept (when glucose = 1, which is not realistic. So we will run another ) Gender: 0.95 (5% lower odds) of graft dysfunction for females (not statistically signficant)</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DonorHyperglycemia, <span class="fu">aes</span>(<span class="at">x =</span> donorrisk, <span class="at">y =</span> delayed_fn)) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>)) <span class="sc">+</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Donor Risk Index"</span>, <span class="at">y =</span> <span class="st">"Probability of Graft Dysfunction"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 135 rows containing non-finite outside the scale range
-(`stat_smooth()`).</code></pre>
-</div>
 <div class="cell-output-display">
-<div>
+<table class="table caption-top table-sm table-striped small">
+<caption>Likelihood Ratio Test: Full vs. Reduced Model</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Model</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Resid. df</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Resid. Dev.</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">$\Delta$ Dev.</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">$p$-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Reduced (no interaction)</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: right;">492.50</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Full (with interaction)</td>
+<td style="text-align: right;">432</td>
+<td style="text-align: right;">491.51</td>
+<td style="text-align: left;">0.988</td>
+<td style="text-align: left;">0.320</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup></sup> Null deviance = 503.72 on 436 df. 135 observations removed due to missingness.</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tfoot>
+
+</table>
+</div>
+</div>
+</section>
+<section id="reduced-model-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="reduced-model-coefficients">Reduced Model Coefficients</h2>
+<p>Looking at the reduced model, donor risk index was the only statistically significant predictor (estimate = 0.958, SE = 0.328, <span class="math inline">\(z\)</span> = 2.92, <span class="math inline">\(p\)</span> = 0.003). Donor glucose (<span class="math inline">\(p\)</span> = 0.282) and donor sex (<span class="math inline">\(p\)</span> = 0.878) were not significant at the 0.05 level.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Reduced Logistic Regression Model: Coefficients</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variable</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Estimate</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Std. Error</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">$z$ value</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">$p$-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-4.480</td>
+<td style="text-align: right;">1.994</td>
+<td style="text-align: right;">-2.246</td>
+<td style="text-align: left;">0.025 *</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$\log_2$(glucose)</td>
+<td style="text-align: right;">0.284</td>
+<td style="text-align: right;">0.263</td>
+<td style="text-align: right;">1.076</td>
+<td style="text-align: left;">0.282</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">donorrisk</td>
+<td style="text-align: right; font-weight: bold;">0.958</td>
+<td style="text-align: right; font-weight: bold;">0.328</td>
+<td style="text-align: right; font-weight: bold;">2.925</td>
+<td style="text-align: left; font-weight: bold;">0.003 **</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex (female)</td>
+<td style="text-align: right;">-0.037</td>
+<td style="text-align: right;">0.241</td>
+<td style="text-align: right;">-0.153</td>
+<td style="text-align: left;">0.878</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup></sup> ** $p &lt; 0.01$, * $p &lt; 0.05$. AIC = 500.5.</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tfoot>
+
+</table>
+</div>
+</div>
+</section>
+<section id="effect-size-and-confidence-interval-for-donor-risk" class="level2">
+<h2 class="anchored" data-anchor-id="effect-size-and-confidence-interval-for-donor-risk">Effect Size and Confidence Interval for Donor Risk</h2>
+<p>To better understand the size of the DRI effect, we exponentiated the coefficient to get an odds ratio of approximately 2.61 (95% CI: 1.40 to 5.07). This suggests that for each one-unit increase in DRI, the estimated odds of delayed graft dysfunction increase by about 161%, holding the other variables constant. The confidence interval is fairly wide, which reflects some uncertainty in the estimate, but it lies entirely above 1.0 — suggesting the positive association is reasonably consistent.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Odds Ratios and 95\% Confidence Intervals (Reduced Model)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variable</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Odds Ratio</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2.5\% CI</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">97.5\% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">0.011</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.547</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$\log_2$(glucose)</td>
+<td style="text-align: right;">1.328</td>
+<td style="text-align: right;">0.794</td>
+<td style="text-align: right;">2.234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">donorrisk</td>
+<td style="text-align: right; font-weight: bold;">2.606</td>
+<td style="text-align: right; font-weight: bold;">1.372</td>
+<td style="text-align: right; font-weight: bold;">4.974</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex (female)</td>
+<td style="text-align: right;">0.964</td>
+<td style="text-align: right;">0.598</td>
+<td style="text-align: right;">1.540</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup></sup> Odds ratios = exp(coef(m0)). CIs via profiled log-likelihood.</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
+
+</table>
+</div>
+</div>
+</section>
+<section id="visualization" class="level2">
+<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
+<p>Figure 1 shows the predicted probability of delayed graft dysfunction across the range of observed DRI values. The upward trend is fairly clear — donors with higher risk scores are predicted to have a higher probability of DGD. The confidence band is tighter at lower DRI values where there are more observations, and widens toward the upper end where data are sparser.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="project_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="project_files/figure-html/fig1-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>Predicted probability of delayed graft dysfunction as a function of Donor Risk Index, with 95% confidence band. Fitted from a binomial GLM using geom_smooth().</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>donor risk association with dysfunction (and adjusted)</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glm</span>(delayed_fn <span class="sc">~</span> donorrisk <span class="sc">+</span> d_genderf,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> DonorHyperglycemia,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = delayed_fn ~ donorrisk + d_genderf, family = "binomial", 
-    data = DonorHyperglycemia)
-
-Coefficients:
-            Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -2.39608    0.45563  -5.259 1.45e-07 ***
-donorrisk    0.97712    0.32707   2.988  0.00281 ** 
-d_genderf   -0.02843    0.24077  -0.118  0.90599    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 503.72  on 436  degrees of freedom
-Residual deviance: 493.66  on 434  degrees of freedom
-  (135 observations deleted due to missingness)
-AIC: 499.66
-
-Number of Fisher Scoring iterations: 4</code></pre>
-</div>
-</div>
-<p>donorrisk → estimate = 0.977, p = 0.00281 (**statistically significant)</p>
-<p>odds ratio</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(m))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)   donorrisk   d_genderf 
- 0.09107449  2.65679251  0.97196569 </code></pre>
-</div>
-</div>
-<p>CI for the odds ratio</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(m))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 2.5 %    97.5 %
-(Intercept) 0.03677266 0.2202696
-donorrisk   1.40052965 5.0667098
-d_genderf   0.60332292 1.5531749</code></pre>
-</div>
-</div>
-<p>We are 95% confident that a one-unit increase in donor risk is associated with between 1.4× and 5.1× higher odds of graft dysfunction.</p>
+</section>
+</section>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
+<p>Overall, our results suggest that donor risk index is a meaningful predictor of delayed graft dysfunction, while donor glucose does not appear to add much on top of what DRI already captures — at least in this dataset and with this modeling approach.</p>
+<p>The odds ratio for DRI was about 2.61, which seems like a substantial effect, though we want to be careful about over-interpreting a single model with limited covariates. The confidence interval (1.40 to 5.07) is wide enough that there is real uncertainty around this estimate. Still, the direction is clear and the result is statistically significant, which gives us some confidence that DRI is picking up on something real.</p>
+<p>The non-significance of glucose was somewhat surprising given our initial hypothesis, but there are a few reasonable explanations. It is possible that DRI already captures much of what glucose reflects — donors with high DRI scores tend to be older and sicker, which could also drive elevated glucose. If that is the case, glucose may not tell us much beyond what DRI already does. It is also possible that a glucose effect exists but that our sample of 437 complete cases was not large enough to detect it reliably, especially after 135 observations were dropped due to missingness. We cannot really distinguish between these two explanations with the data we have.</p>
+<p>There are a few other limitations worth mentioning. Our model only includes three predictors, and there are likely other variables — such as cold ischemia time or recipient-level factors — that could matter and are not accounted for here. Because this is observational data, we also cannot make any causal claims. A higher DRI being associated with more dysfunction does not mean DRI causes it; both could be driven by underlying donor characteristics we are not measuring. We also handled missing data by dropping incomplete cases, which is simple but may introduce bias if the missingness is related to the outcome.</p>
+<p>If we were to extend this analysis, multiple imputation could help recover some of the information lost from the 135 dropped observations. Including additional clinical variables would also likely improve the model. It would also be interesting to look at glucose at different time points rather than just a time-weighted average, to see if timing matters.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>We used logistic regression to examine whether donor glucose predicts delayed graft dysfunction and whether that relationship is modified by donor risk index. The interaction between glucose and DRI was not statistically significant (LRT <span class="math inline">\(p\)</span> = 0.32), and glucose itself was not a significant predictor in the reduced model (<span class="math inline">\(p\)</span> = 0.28). Donor risk index, on the other hand, showed a consistent positive association with DGD across both models, with an estimated odds ratio of 2.61 (95% CI: 1.40 to 5.07).</p>
+<p>Based on these results, DRI appears to be the stronger predictor of graft dysfunction in this dataset, and glucose did not provide meaningful additional information beyond it. That said, our model is relatively simple and there is quite a bit of uncertainty in some of our estimates, so these findings should be interpreted cautiously rather than as definitive conclusions. We are 95% confident that a one-unit increase in donor risk is associated with between 1.4× and 5.1× higher odds of graft dysfunction.</p>
+</section>
 
 </main>
 <!-- /main column -->

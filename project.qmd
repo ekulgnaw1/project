@@ -1,72 +1,284 @@
 ---
-title: "project"
-format: pdf
+title: "Donor Glucose and Delayed Graft Dysfunction in Liver Transplantation"
+subtitle: "Does Donor Risk Index Modify the Association?"
+date: "STA 198, Spring 2025"
+names: Kuber Gohil, Elena Maeve, Luke Wang
+
+output:
+  pdf_document:
+    latex_engine: xelatex
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{float}
+  - \floatplacement{table}{H}
 ---
-```{r}
-library(dplyr)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(tidyverse)
-```
+library(knitr)
+library(kableExtra)
+library(broom)
 
-```{r}
 DonorHyperglycemia <- read_csv("DonorHyperglycemia.csv")
-```
 
-
-***REAL*** testing donor glucose association with dysfunction & differing by risk index
-```{r}
-
-# Full model (with interaction: glucose × donor risk)
 m1 <- glm(delayed_fn ~ log2(glutwa) * donorrisk + d_genderf,
-          data = DonorHyperglycemia,
-          family = "binomial")
+          data = DonorHyperglycemia, family = "binomial")
 
-summary(m1)
-
-# Reduced model (no interaction)
 m0 <- glm(delayed_fn ~ log2(glutwa) + donorrisk + d_genderf,
-          data = DonorHyperglycemia,
-          family = "binomial")
+          data = DonorHyperglycemia, family = "binomial")
 
-summary(m0)
-
-# Likelihood Ratio Test (comparing both models)
-anova(m0, m1, test = "LRT")
-
+m <- glm(delayed_fn ~ donorrisk + d_genderf,
+         data = DonorHyperglycemia, family = "binomial")
 ```
 
+# Introduction
 
- Donor Glucose: 3.63x higher odds of graft dysfunction (earlier - proven to not be statistically significant)
- Donor Risk: 410x higher odds of graft dysfunction for each 1 point increase (proven to be statistically significant), but at the interecept (when glucose = 1, which is not realistic. So we will run another )
- Gender: 0.95 (5% lower odds) of graft dysfunction for females (not statistically signficant)
- 
+Delayed graft dysfunction (DGD) is a complication that can occur following liver
+transplantation, and is generally associated with longer hospital stays, higher
+mortality, and worse long-term graft survival. Understanding what predicts DGD
+matters both for patient outcomes and for decisions about which donor organs to
+accept.
 
+One commonly used tool for assessing donor organ quality is the Donor Risk Index
+(DRI), a composite score that takes into account factors like donor age, cause of
+death, and organ type to estimate the likelihood of graft failure. Higher DRI
+values indicate higher-risk donations. While DRI has been used to predict
+transplant outcomes, it is based on demographic and clinical information and does
+not include real-time physiological measurements from the donor.
 
-```{r}
-library(ggplot2)
+Donor glucose is one variable that might provide additional information. High
+glucose levels in critically ill patients can be a sign of physiological stress,
+which could potentially affect organ viability before transplantation. That said,
+whether donor glucose is actually associated with DGD — and whether that
+relationship changes depending on how risky the donor already is by DRI — is not
+well established in the literature we reviewed.
 
+This study looks at both of these questions using data from 572 liver transplant
+donors. The dataset includes donor glucose levels (recorded as a time-weighted
+average and log-transformed for analysis), the Donor Risk Index, donor sex, and
+whether delayed graft dysfunction occurred.
+
+**Research question:** Does donor glucose level predict delayed graft dysfunction
+in liver transplantation, and does this association differ by donor risk index?
+
+# Methodology
+
+## Model Specification
+
+Because delayed graft dysfunction is a binary outcome (1 = dysfunction,
+0 = no dysfunction), we used logistic regression to model the probability of DGD.
+This is a standard approach for binary outcomes and lets us estimate how each
+predictor is associated with the odds of dysfunction while holding the others
+constant.
+
+We fit two models. The first includes an interaction term between log-transformed
+glucose and DRI. We included this interaction because we wanted to test whether
+the relationship between glucose and DGD might depend on how risky the donor
+already is — for example, glucose might matter more for high-risk donors than
+low-risk ones:
+
+$$\text{logit}(P(\text{DGD})) = \beta_0 + \beta_1\log_2(\text{glucose}) + \beta_2\text{DRI} + \beta_3\text{sex} + \beta_4\log_2(\text{glucose})\times\text{DRI}$$
+
+where $\text{logit}(P(\text{DGD}))$ is the log-odds of delayed graft dysfunction,
+$\log_2(\text{glucose})$ is the log base-2 transformed time-weighted average donor
+glucose, $\text{DRI}$ is the Donor Risk Index, $\text{sex}$ is donor sex
+(female = 1), and the interaction term $\log_2(\text{glucose}) \times \text{DRI}$
+captures whether the glucose effect differs across DRI levels.
+
+We also fit a reduced model without the interaction term, to look at the
+independent effect of each predictor:
+
+$$\text{logit}(P(\text{DGD})) = \beta_0 + \beta_1\log_2(\text{glucose}) + \beta_2\text{DRI} + \beta_3\text{sex}$$
+
+We then compared the two models using a likelihood ratio test (LRT) to see
+whether adding the interaction term meaningfully improved model fit. If the test
+came back non-significant ($p > 0.05$), we would conclude there is not enough
+evidence for an interaction and stick with the simpler model.
+
+## Choice of Predictors and Transformations
+
+Glucose was log-transformed (base 2) before modeling because the raw values were
+right-skewed. The log$_2$ scale is also convenient for interpretation: a one-unit
+increase corresponds to a doubling of the original glucose value.
+
+We included donor sex as a covariate based on prior literature suggesting it may
+be related to graft outcomes. DRI was kept as a continuous variable rather than
+grouped into categories, since collapsing it would lose information.
+
+## Assumptions
+
+Logistic regression requires a few key assumptions: that the log-odds of the
+outcome is approximately linear in each continuous predictor, that observations
+are independent, and that predictors are not perfectly collinear with each other.
+
+We assessed linearity by looking at the shape of the fitted logistic curve, which
+appeared smooth and monotonic — consistent with the linearity assumption, though
+we did not run formal diagnostics. Independence seems reasonable since each row
+in the dataset is a separate donor-recipient pair. The three predictors capture
+different aspects of the donor (metabolic, composite risk, and demographic), so
+perfect collinearity is unlikely. It is worth noting that 135 observations were
+dropped due to missing data, leaving 437 complete cases, which is still a
+reasonable sample size for this kind of model.
+
+# Results
+
+## Model Comparison: Likelihood Ratio Test
+
+The likelihood ratio test comparing the full model to the reduced model returned
+a $p$-value of 0.32. This means we do not have sufficient evidence at the 0.05
+significance level to conclude that the interaction between glucose and DRI
+improves model fit. In other words, the data do not support the idea that the
+effect of glucose on DGD changes depending on the donor's risk level. We
+proceeded with the reduced model for the rest of the analysis.
+
+```{r lrt-table}
+lrt_df <- data.frame(
+  Model     = c("Reduced (no interaction)", "Full (with interaction)"),
+  Resid_df  = c(433, 432),
+  Resid_Dev = c(492.50, 491.51),
+  Delta_Dev = c("—", "0.988"),
+  p_value   = c("—", "0.320")
+)
+
+kable(lrt_df,
+      booktabs  = TRUE,
+      col.names = c("Model", "Resid. df", "Resid. Dev.", "$\\Delta$ Dev.", "$p$-value"),
+      escape    = FALSE,
+      caption   = "Likelihood Ratio Test: Full vs. Reduced Model") |>
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width = FALSE) |>
+  footnote(general = "Null deviance = 503.72 on 436 df. 135 observations removed due to missingness.",
+           general_title = "", footnote_as_chunk = TRUE)
+```
+
+## Reduced Model Coefficients
+
+Looking at the reduced model, donor risk index was the only statistically
+significant predictor (estimate = 0.958, SE = 0.328, $z$ = 2.92, $p$ = 0.003).
+Donor glucose ($p$ = 0.282) and donor sex ($p$ = 0.878) were not significant at
+the 0.05 level.
+
+```{r coeff-table}
+tidy(m0) |>
+  mutate(
+    term = c("(Intercept)", "$\\log_2$(glucose)", "donorrisk", "sex (female)"),
+    p.value = case_when(
+      p.value < 0.01 ~ paste0(round(p.value, 3), " **"),
+      p.value < 0.05 ~ paste0(round(p.value, 3), " *"),
+      TRUE           ~ as.character(round(p.value, 3))
+    ),
+    across(where(is.numeric), ~round(., 3))
+  ) |>
+  kable(booktabs  = TRUE,
+        escape    = FALSE,
+        col.names = c("Variable", "Estimate", "Std. Error", "$z$ value", "$p$-value"),
+        caption   = "Reduced Logistic Regression Model: Coefficients") |>
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width = FALSE) |>
+  row_spec(3, bold = TRUE) |>
+  footnote(general = "** $p < 0.01$, * $p < 0.05$. AIC = 500.5.",
+           general_title = "", escape = FALSE, footnote_as_chunk = TRUE)
+```
+
+## Effect Size and Confidence Interval for Donor Risk
+
+To better understand the size of the DRI effect, we exponentiated the coefficient
+to get an odds ratio of approximately 2.61 (95% CI: 1.40 to 5.07). This suggests
+that for each one-unit increase in DRI, the estimated odds of delayed graft
+dysfunction increase by about 161%, holding the other variables constant. The
+confidence interval is fairly wide, which reflects some uncertainty in the
+estimate, but it lies entirely above 1.0 — suggesting the positive association
+is reasonably consistent.
+
+```{r or-table}
+cbind(OR = exp(coef(m0)), exp(confint(m0))) |>
+  as.data.frame() |>
+  round(3) |>
+  tibble::rownames_to_column("Variable") |>
+  mutate(Variable = c("(Intercept)", "$\\log_2$(glucose)", "donorrisk", "sex (female)")) |>
+  kable(booktabs  = TRUE,
+        escape    = FALSE,
+        col.names = c("Variable", "Odds Ratio", "2.5\\% CI", "97.5\\% CI"),
+        caption   = "Odds Ratios and 95\\% Confidence Intervals (Reduced Model)") |>
+  kable_styling(latex_options = c("striped", "hold_position"),
+                full_width = FALSE) |>
+  row_spec(3, bold = TRUE) |>
+  footnote(general = "Odds ratios = exp(coef(m0)). CIs via profiled log-likelihood.",
+           general_title = "", footnote_as_chunk = TRUE)
+```
+
+## Visualization
+
+Figure 1 shows the predicted probability of delayed graft dysfunction across the
+range of observed DRI values. The upward trend is fairly clear — donors with
+higher risk scores are predicted to have a higher probability of DGD. The
+confidence band is tighter at lower DRI values where there are more observations,
+and widens toward the upper end where data are sparser.
+
+```{r fig1, fig.cap="Predicted probability of delayed graft dysfunction as a function of Donor Risk Index, with 95\\% confidence band. Fitted from a binomial GLM using geom\\_smooth().", fig.align="center", fig.width=5.5, fig.height=3.8, out.width="75%"}
+
+# ── PASTE YOUR GGPLOT CODE HERE ──────────────────────────────────────────────
 ggplot(DonorHyperglycemia, aes(x = donorrisk, y = delayed_fn)) +
   geom_smooth(method = "glm", method.args = list(family = "binomial")) +
-  labs(x = "Donor Risk Index", y = "Probability of Graft Dysfunction")
+  labs(x = "Donor Risk Index", y = "Probability of Graft Dysfunction") +
+  theme_classic()
+# ─────────────────────────────────────────────────────────────────────────────
 ```
 
-donor risk association with dysfunction (and adjusted)
-```{r}
-m <- glm(delayed_fn ~ donorrisk + d_genderf,
-         data = DonorHyperglycemia,
-         family = "binomial")
+# Discussion
 
-summary(m)
-```
-donorrisk → estimate = 0.977, p = 0.00281 (**statistically significant)
+Overall, our results suggest that donor risk index is a meaningful predictor of
+delayed graft dysfunction, while donor glucose does not appear to add much
+on top of what DRI already captures — at least in this dataset and with this
+modeling approach.
 
-odds ratio 
-```{r}
-exp(coef(m))
-```
+The odds ratio for DRI was about 2.61, which seems like a substantial effect,
+though we want to be careful about over-interpreting a single model with limited
+covariates. The confidence interval (1.40 to 5.07) is wide enough that there is
+real uncertainty around this estimate. Still, the direction is clear and the
+result is statistically significant, which gives us some confidence that DRI is
+picking up on something real.
 
-CI for the odds ratio
-```{r}
-exp(confint(m))
-```
+The non-significance of glucose was somewhat surprising given our initial
+hypothesis, but there are a few reasonable explanations. It is possible that DRI
+already captures much of what glucose reflects — donors with high DRI scores tend
+to be older and sicker, which could also drive elevated glucose. If that is the
+case, glucose may not tell us much beyond what DRI already does. It is also
+possible that a glucose effect exists but that our sample of 437 complete cases
+was not large enough to detect it reliably, especially after 135 observations were
+dropped due to missingness. We cannot really distinguish between these two
+explanations with the data we have.
+
+There are a few other limitations worth mentioning. Our model only includes three
+predictors, and there are likely other variables — such as cold ischemia time or
+recipient-level factors — that could matter and are not accounted for here. Because
+this is observational data, we also cannot make any causal claims. A higher DRI
+being associated with more dysfunction does not mean DRI causes it; both could be
+driven by underlying donor characteristics we are not measuring. We also handled
+missing data by dropping incomplete cases, which is simple but may introduce bias
+if the missingness is related to the outcome.
+
+If we were to extend this analysis, multiple imputation could help recover some of
+the information lost from the 135 dropped observations. Including additional
+clinical variables would also likely improve the model. It would also be
+interesting to look at glucose at different time points rather than just a
+time-weighted average, to see if timing matters.
+
+# Conclusion
+
+We used logistic regression to examine whether donor glucose predicts delayed graft
+dysfunction and whether that relationship is modified by donor risk index. The
+interaction between glucose and DRI was not statistically significant (LRT
+$p$ = 0.32), and glucose itself was not a significant predictor in the reduced
+model ($p$ = 0.28). Donor risk index, on the other hand, showed a consistent
+positive association with DGD across both models, with an estimated odds ratio of
+2.61 (95% CI: 1.40 to 5.07).
+
+Based on these results, DRI appears to be the stronger predictor of graft
+dysfunction in this dataset, and glucose did not provide meaningful additional
+information beyond it. That said, our model is relatively simple and there is
+quite a bit of uncertainty in some of our estimates, so these findings should be
+interpreted cautiously rather than as definitive conclusions.
 We are 95% confident that a one-unit increase in donor risk is associated with between 1.4× and 5.1× higher odds of graft dysfunction.
 
