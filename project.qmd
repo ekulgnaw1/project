@@ -1,6 +1,6 @@
 ---
 title: "project"
-format: html
+format: pdf
 ---
 ```{r}
 library(dplyr)
